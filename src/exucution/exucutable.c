@@ -6,7 +6,7 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 10:48:33 by aelbouz           #+#    #+#             */
-/*   Updated: 2025/06/21 20:52:08 by houabell         ###   ########.fr       */
+/*   Updated: 2025/06/21 21:08:30 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**env_to_array(t_env *env)
 	return (envp);
 }
 
-char	*find_executable(char *cmd, char *env_path)
+/*char	*find_executable(char *cmd, char *env_path)
 {
 	char	**dirs;
 	char	*full_path;
@@ -57,6 +57,39 @@ char	*find_executable(char *cmd, char *env_path)
 		free(full_path);
 	}
 	return (free_arr(dirs), NULL);
+}*/
+
+char	*find_executable(char *cmd, char *env_path)
+{
+	char		**dirs;
+	char		*full_path;
+	char		*tmp;
+	int			i;
+	struct stat	path_stat; // Add a stat struct
+
+	dirs = ft_split(env_path, ':');
+	if (!dirs)
+		return (NULL);
+	i = 0;
+	while (dirs[i])
+	{
+		tmp = ft_strjoin(dirs[i], "/");
+		full_path = ft_strjoin(tmp, cmd);
+		free(tmp);
+		if (access(full_path, F_OK) == 0) // Check for existence first
+		{
+			stat(full_path, &path_stat);
+			if (!S_ISDIR(path_stat.st_mode)) // Check if it's NOT a directory
+			{
+				if (access(full_path, X_OK) == 0) // Then check for execute permission
+					return (free_arr(dirs), full_path);
+			}
+		}
+		free(full_path);
+		i++;
+	}
+	free_arr(dirs);
+	return (NULL);
 }
 
 /*int	check_executable(char *cmd, char *env_path, char **full_path)
@@ -106,7 +139,9 @@ int	check_executable(char *cmd, char *env_path, char **full_path)
 	if (!cmd || cmd[0] == '\0')
 		return (127);
 	if (ft_strchr(cmd, '/'))
+	{
 		return (check_direct_path(cmd, full_path));
+	}
 	if (env_path)
 		*full_path = find_executable(cmd, env_path);
 	else
