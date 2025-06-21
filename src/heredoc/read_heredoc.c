@@ -6,7 +6,7 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 10:55:05 by houabell          #+#    #+#             */
-/*   Updated: 2025/06/21 08:32:58 by aelbouz          ###   ########.fr       */
+/*   Updated: 2025/06/21 22:22:49 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	write_line_to_file(int fd, char *line)
 	write(fd, "\n", 1);
 }
 
-int	read_heredoc_input(char *delimiter, int expand, t_shell *shell)
+/*int	read_heredoc_input(char *delimiter, int expand, t_shell *shell)
 {
 	char	*line;
 	int		fd;
@@ -77,4 +77,43 @@ int	read_heredoc_input(char *delimiter, int expand, t_shell *shell)
 	}
 	signal(SIGINT, sigint_handler);
 	return (close(fd), SUCCESS);
+}*/
+
+int	read_heredoc_input(char *delimiter, int expand, t_shell *shell)
+{
+	char	*line;
+	int		fd;
+	int		stdin_backup;
+
+	fd = create_heredoc_file(shell);
+	if (fd == -1)
+		return (ERROR);
+	g_signal_status = 0;
+	stdin_backup = dup(STDIN_FILENO);
+	signal(SIGINT, sigint_heredoc_handler);
+	while (1)
+	{
+		line = readline("> ");
+		if (g_signal_status == 1)
+		{
+			shell->heredoc_sigint = 1;
+			break ;
+		}
+		if (should_stop_heredoc(line, delimiter))
+		{
+			if (line)
+				free(line);
+			break ;
+		}
+		line = process_heredoc_line(line, expand, shell);
+		write_line_to_file(fd, line);
+		free(line);
+	}
+	signal(SIGINT, sigint_handler);
+	close(fd);
+	dup2(stdin_backup, STDIN_FILENO);
+	close(stdin_backup);
+	if (shell->heredoc_sigint)
+		return (ERROR);
+	return (SUCCESS);
 }

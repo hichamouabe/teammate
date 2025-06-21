@@ -6,7 +6,7 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 04:51:41 by houabell          #+#    #+#             */
-/*   Updated: 2025/06/21 17:54:23 by houabell         ###   ########.fr       */
+/*   Updated: 2025/06/21 23:34:42 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,6 +270,58 @@ int				handle_heredocs(t_shell *shell);
 int				read_heredoc_input(char *delimiter, int expand, t_shell *shell);
 
 //exucution functions
+//int				is_builtin(char *cmd, char **args, t_env **env);
+//int				ft_echo(char **av);
+//int				ft_pwd(t_env **env);
+//int				ft_exit(char **args);
+//char			*find_executable(char *cmd, char *path_env);
+//void			is_not_builtin(char **args, char *env_path, t_env *env);
+//char			**env_to_array(t_env *env);
+// void			init_env(char **envp);
+//void			free_env(t_env *env);
+//t_env			*get_env(t_env *new_env);
+//int				ft_cd(char **args, t_env **env);
+//int				ft_export(char **args, t_env **env);
+//void			updat_env(t_env **env, char *key, char *value);
+//int				find_and_update(t_env **env, char *key, char *value);
+//t_env			*env_sorted(t_env *env);
+//int				handl_export_args(char *arg, t_env **env);
+//t_env			*copie_env(t_env	*head);
+//int				is_valide_args(char *key);
+//int				ft_unset(char **args, t_env **env);
+//int				execute_with_setup(t_command **cmds, t_command *cmd, \
+//				t_execution_info *info, char *env_path);
+//int				cleanup_execution(t_execution_info *info);
+//int				handle_redir(t_command *cmd);
+//int				execute_multiple_commands(t_command **cmds, t_env **env, \
+//				int cmd_count, t_execution_info *info);
+//int				execute_single_command(t_command *cmd, t_env **env);
+//void			handl_plus(t_env **env, char *key, char *value);
+//int				setup_io(t_execution_info *info);
+//char			*get_my_env(char *name, t_env *env);
+//t_env			*init_default_env(t_env **env);
+//int				handle_out_redir(t_redirect *redir_info);
+//void			ft_lstadd_back(t_env **lst, t_env *new);
+//void			ft_putstr_fd(char *s, int fd);
+//int				ft_atoi(const char *str);
+//int				ft_isdigit(char c);
+//char			*ft_strtrim(char const *s1, char const *set);
+//int				ft_lstsize(t_env *lst);
+//void			close_fds(t_command *cmd, int stdout_save, int stdin_save);
+//void			free_cmd(t_command *cmd);
+//t_command		*parse_single_command(t_token **tokens);
+//void			add_redirect(t_command *cmd, t_token_type type, char *filename);
+//void			count_args_and_redirs(t_token *start, int *arg_c, int *redir_c);
+//int				env_to_array2(char **envp, int	*i, t_env *tmp);
+//void			child_process(t_command *cmd, t_env **env, int in_fd, int out_fd);
+//void			wait_for_children(int last_pid, int cmd_count, t_execution_info *info);
+//
+
+
+
+
+
+//exucution functions
 int				is_builtin(char *cmd, char **args, char *env_path, t_env **env);
 int				ft_echo(char **av);
 int				ft_pwd(t_env **env);
@@ -277,7 +329,6 @@ int				ft_exit(char **args);
 char			*find_executable(char *cmd, char *path_env);
 int				is_not_builtin(char **args, char *env_path, t_env *env);
 char			**env_to_array(t_env *env);
-// void			init_env(char **envp);
 void			free_env(t_env *env);
 t_env			*get_env(t_env *new_env);
 int				ft_cd(char **args, t_env **env);
@@ -313,5 +364,4 @@ t_command		*parse_single_command(t_token **tokens);
 void			add_redirect(t_command *cmd, t_token_type type, char *filename);
 void			count_args_and_redirs(t_token *start, int *arg_c, int *redir_c);
 int				env_to_array2(char **envp, int	*i, t_env *tmp);
-
 #endif
