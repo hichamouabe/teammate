@@ -6,7 +6,7 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 17:30:56 by aelbouz           #+#    #+#             */
-/*   Updated: 2025/06/19 11:07:01 by aelbouz          ###   ########.fr       */
+/*   Updated: 2025/06/21 18:50:08 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ int	execute_single_command(t_command *cmd, t_env **env)
 	info.status = is_builtin(cmd->args[0], cmd->args, env_path, env);
 	dup2(info.stdout_save, STDOUT_FILENO);
 	dup2(info.stdin_save, STDIN_FILENO);
-	if (cmd->redirects && cmd->redirects->type == TOKEN_HEREDOC)
-		unlink("/tmp/herdoc");
 	close_fds(cmd, info.stdout_save, info.stdout_save);
 	return (info.status);
 }

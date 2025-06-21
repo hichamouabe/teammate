@@ -6,7 +6,7 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:09:56 by houabell          #+#    #+#             */
-/*   Updated: 2025/06/21 17:53:41 by houabell         ###   ########.fr       */
+/*   Updated: 2025/06/21 18:25:01 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	print_ambiguous_redirect_error(t_shell *shell, t_token *token)
 	shell->exit_status = 1;
 	free_tokens(shell->tokens);
 	shell->tokens = NULL;
+	free_var_info_list(shell->variables);
+	shell->variables = NULL;
 }
 
 /*void	expand_variables(t_shell *shell)
