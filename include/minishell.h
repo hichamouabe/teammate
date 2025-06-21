@@ -6,7 +6,7 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 04:51:41 by houabell          #+#    #+#             */
-/*   Updated: 2025/06/21 08:27:45 by aelbouz          ###   ########.fr       */
+/*   Updated: 2025/06/21 17:54:23 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,8 @@ t_token			*finalize_word(char *input, int start, \
 int				segment_has_any_actual_quotes(const char *segment_str, int len);
 
 void			print_variables(t_var_info *variables);
-
+void			print_ambiguous_redirect_error(t_shell *shell, t_token *token);
+int				check_token_condition(t_token *cur, t_token *prev);
 // Environment Handling (src/env_handling)
 t_env			*init_env(char **envp);
 void			free_env(t_env *env);

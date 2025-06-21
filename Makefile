@@ -48,6 +48,7 @@ SRCS = \
 	$(EXP_DIR)var_logging_utils.c \
 	$(EXP_DIR)expansion_utils1.c \
 	$(EXP_DIR)expansion_utils2.c \
+	$(EXP_DIR)expanding_added.c \
 	$(ENV_DIR)environement_main.c \
 	$(ENV_DIR)environement_utils.c \
 	$(SIGNAL_DIR)handle_signals.c \

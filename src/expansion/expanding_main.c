@@ -6,7 +6,7 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:09:56 by houabell          #+#    #+#             */
-/*   Updated: 2025/06/21 17:23:26 by houabell         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:53:41 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	process_each_token(t_token **token, t_var_info **var, t_shell *shell, \
 	free_arr(segments);
 }
 
-static int	check_token_condition(t_token *cur, t_token *prev)
+int	check_token_condition(t_token *cur, t_token *prev)
 {
 	int	is_redir_target;
 
@@ -66,7 +66,7 @@ static int	check_token_condition(t_token *cur, t_token *prev)
 		*cur_token = (*cur_token)->next;
 }*/
 
-static void	print_ambiguous_redirect_error(t_shell *shell, t_token *token)
+void	print_ambiguous_redirect_error(t_shell *shell, t_token *token)
 {
 	printf("minishell: %s: ambiguous redirect\n", token->value);
 	shell->exit_status = 1;
@@ -74,7 +74,7 @@ static void	print_ambiguous_redirect_error(t_shell *shell, t_token *token)
 	shell->tokens = NULL;
 }
 
-void	expand_variables(t_shell *shell)
+/*void	expand_variables(t_shell *shell)
 {
 	t_token		*cur;
 	t_token		*prev;
@@ -139,4 +139,4 @@ void	expand_variables(t_shell *shell)
 			cur = next_node;
 		}
 	}
-}
+}*/
