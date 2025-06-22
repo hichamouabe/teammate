@@ -6,7 +6,7 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 22:14:52 by houabell          #+#    #+#             */
-/*   Updated: 2025/06/21 08:32:17 by aelbouz          ###   ########.fr       */
+/*   Updated: 2025/06/22 15:32:18 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	free_shell(t_shell *shell)
 	free(shell);
 }
 
-void	reset_shell(t_shell *shell)
+/*void	reset_shell(t_shell *shell)
 {
 	if (shell->tokens)
 	{
@@ -76,6 +76,44 @@ void	reset_shell(t_shell *shell)
 		free_cmd(shell->commands);
 		shell->commands = NULL;
 	}
+	if (shell->input)
+	{
+		free(shell->input);
+		shell->input = NULL;
+	}
+	if (shell->variables)
+	{
+		free_var_info_list(shell->variables);
+		shell->variables = NULL;
+	}
+	if (shell->heredoc_files)
+		cleanup_files(shell);
+	shell->heredoc_sigint = 0;
+}*/
+
+// In file: src/shell/shell_1.c
+
+void	reset_shell(t_shell *shell)
+{
+	t_command	*current_cmd;
+	t_command	*next_cmd;
+
+	if (shell->tokens)
+	{
+		free_tokens(shell->tokens);
+		shell->tokens = NULL;
+	}
+	// --- THIS IS THE KEY FIX ---
+	// Iterate through the linked list of commands and free each one.
+	current_cmd = shell->commands;
+	while (current_cmd)
+	{
+		next_cmd = current_cmd->next;
+		free_cmd(current_cmd); // Your existing function to free a single command
+		current_cmd = next_cmd;
+	}
+	shell->commands = NULL;
+	// --- END OF FIX ---
 	if (shell->input)
 	{
 		free(shell->input);

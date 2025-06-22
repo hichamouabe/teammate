@@ -6,7 +6,7 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 10:48:33 by aelbouz           #+#    #+#             */
-/*   Updated: 2025/06/21 23:28:16 by houabell         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:33:56 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,61 +194,26 @@ int	check_status(char **args, char *env_path, char **full_path)
 	return (status);
 }
 
-/*int	is_not_builtin(char **args, char *env_path, t_env *env)
-{
-	char	*full_path;
-	int		status;
-	int		pid;
-	char	**envp;
-
-	full_path = NULL;
-	status = check_status(args, env_path, &full_path);
-	if (status != 0)
-		return (free(full_path), status);
-	envp = env_to_array(env);
-	if (!envp)
-		return (free(full_path), 1);
-	pid = fork();
-	if (pid == -1)
-		return (free(full_path), free_arr(envp), perror("minishell: fork"), 1);
-	else if (pid == 0)
-	{
-		execve(full_path, args, envp);
-		return (free(full_path), free_arr(envp), perror(args[0]), 1);
-	}
-	waitpid(pid, &status, 0);
-	free(full_path);
-	free_arr(envp);
-	return (status);
-}*/
-
 int	is_not_builtin(char **args, char *env_path, t_env *env)
 {
 	char	*full_path;
 	int		status;
-	pid_t	pid;
 	char	**envp;
 
 	full_path = NULL;
 	status = check_status(args, env_path, &full_path);
 	if (status != 0)
-		return (free(full_path), status);
+		exit(status); // Exit the child process
 	envp = env_to_array(env);
 	if (!envp)
-		return (free(full_path), 1);
-	pid = fork();
-	if (pid == -1)
-		return (free(full_path), free_arr(envp), perror("minishell: fork"), 1);
-	if (pid == 0)
 	{
-		execve(full_path, args, envp);
-		perror(args[0]);
-		exit(126);
+		free(full_path);
+		exit(1);
 	}
-	waitpid(pid, &status, 0);
+	execve(full_path, args, envp);
+	// If execve returns, it failed.
 	free(full_path);
 	free_arr(envp);
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (status);
+	perror(args[0]);
+	exit(126); // Should exit child
 }

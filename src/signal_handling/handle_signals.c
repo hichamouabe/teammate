@@ -6,7 +6,7 @@
 /*   By: houabell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 22:15:38 by houabell          #+#    #+#             */
-/*   Updated: 2025/06/21 22:36:50 by houabell         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:57:06 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	handle_signals(void)
 void	sigint_heredoc_handler(int sig)
 {
 	(void)sig;
-	g_signal_status = 1;
+	g_signal_status = 130;
 	printf("\n");
 	close(0);
 }
@@ -38,7 +38,7 @@ void	sigint_heredoc_handler(int sig)
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	g_signal_status = 1;
+	g_signal_status = 130;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);

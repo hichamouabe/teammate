@@ -6,11 +6,27 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 22:03:48 by houabell          #+#    #+#             */
-/*   Updated: 2025/06/19 13:15:35 by aelbouz          ###   ########.fr       */
+/*   Updated: 2025/06/22 15:09:53 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+char	*get_my_env(char *name, t_env *env)
+{
+	t_env	*tmp;
+
+	if (!name || !env)
+		return (NULL);
+	tmp = env;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->key, name) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
 
 void	free_env(t_env *env)
 {

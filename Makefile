@@ -67,16 +67,14 @@ SRCS = \
 	$(EXUCUTION)export2.c \
 	$(EXUCUTION)export3.c \
 	$(EXUCUTION)exucutable.c \
-	$(EXUCUTION)rediractions_helper2.c \
+	$(EXUCUTION)execution_main.c \
 	$(EXUCUTION)rediractions2.c \
-	$(EXUCUTION)rediractions3.c \
 	$(EXUCUTION)unset.c \
 	$(EXUCUTION)ft_atoi.c \
 	$(EXUCUTION)ft_lstadd_back.c \
 	$(EXUCUTION)ft_lstsize.c \
 	$(EXUCUTION)ft_putstr_fd.c \
 	$(EXUCUTION)ft_strtrim.c \
-	$(EXUCUTION)dummy.c \
 	$(PARSER)parser.c \
 	$(PARSER)parse_single_command.c \
 	$(PARSER)parser_utils.c 

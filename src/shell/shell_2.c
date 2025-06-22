@@ -6,7 +6,7 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 22:29:17 by houabell          #+#    #+#             */
-/*   Updated: 2025/06/13 10:34:57 by aelbouz          ###   ########.fr       */
+/*   Updated: 2025/06/22 17:55:55 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,15 @@ int	minishell_loop(t_shell *shell)
 	{
 		if (get_and_process_input(shell) == ERROR)
 			break ;
+		if (g_signal_status != 0)
+		{
+			shell->exit_status = g_signal_status;
+		}
 		if (shell->input)
 		{
 			process_command(shell);
-			reset_shell(shell);
 		}
+		reset_shell(shell);
 	}
 	return (shell->exit_status);
 }
