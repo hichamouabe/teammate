@@ -6,7 +6,7 @@
 /*   By: houabell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 15:05:10 by houabell          #+#    #+#             */
-/*   Updated: 2025/06/22 17:45:31 by houabell         ###   ########.fr       */
+/*   Updated: 2025/06/23 22:17:41 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ int	execute_single_command(t_command *cmd, t_env **env)
 	pid_t	pid;
 	char	*env_path;
 
-	if (!cmd->args || !cmd->args[0])
+	if (!cmd->args || !cmd->args[0] && !cmd->redirects)
 		return (0);
-	if (is_parent_builtin(cmd->args[0]))
+	if (cmd->args && cmd->args[0] && is_parent_builtin(cmd->args[0]))
 	{
 		stdout_save = dup(STDOUT_FILENO);
 		stdin_save = dup(STDIN_FILENO);

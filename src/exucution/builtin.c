@@ -6,7 +6,7 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:26:56 by aelbouz           #+#    #+#             */
-/*   Updated: 2025/06/20 11:46:02 by aelbouz          ###   ########.fr       */
+/*   Updated: 2025/06/23 21:57:13 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,20 @@ int	ft_cd(char **args, t_env **env)
 	char	*oldpwd;
 	char	*newpwd;
 	char	*path;
+	char	*upgraded;
 
 	path = args[1];
+	upgraded = NULL;
+	if(args[1] && args[1][0] == '\0')
+		return (0);
 	oldpwd = getcwd(NULL, 0);
 	if (!path || ft_strcmp(path, "~") == 0)
 		path = get_my_env("HOME", *env);
+	else if (path[0] == '~' && path[1] == '/')
+	{
+		upgraded = ft_strjoin(get_my_env("HOME", *env), path + 1);
+		path = upgraded;
+	}
 	if (!path)
 		return (free(oldpwd), ft_putstr_fd("cd: HOME not set\n", 2), 1);
 	if (chdir(path) == -1)
@@ -44,7 +53,7 @@ int	ft_cd(char **args, t_env **env)
 	updat_env(env, "PWD", newpwd);
 	if (oldpwd)
 		free (oldpwd);
-	return (free(newpwd), 0);
+	return (free(upgraded), free(newpwd), 0);
 }
 
 int	is_numeric(char *str)
