@@ -6,7 +6,7 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 10:55:05 by houabell          #+#    #+#             */
-/*   Updated: 2025/06/21 22:22:49 by houabell         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:57:02 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	read_heredoc_input(char *delimiter, int expand, t_shell *shell)
 	while (1)
 	{
 		line = readline("> ");
-		if (g_signal_status == 1)
+		if (g_signal_status == 130)
 		{
 			shell->heredoc_sigint = 1;
 			break ;
