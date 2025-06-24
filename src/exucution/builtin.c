@@ -6,7 +6,7 @@
 /*   By: aelbouz <aelbouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:26:56 by aelbouz           #+#    #+#             */
-/*   Updated: 2025/06/23 21:57:13 by houabell         ###   ########.fr       */
+/*   Updated: 2025/06/24 19:57:13 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	ft_cd(char **args, t_env **env)
 	}
 	if (!path)
 		return (free(oldpwd), ft_putstr_fd("cd: HOME not set\n", 2), 1);
+	if (!path[0])
+		return (free(oldpwd), 0);
 	if (chdir(path) == -1)
 		return (ft_putstr_fd("cd: ", 2), write(2, path, ft_strlen(path)), \
 		ft_putstr_fd(" No such file or directory\n", 2), free(oldpwd), 1);

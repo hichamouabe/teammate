@@ -6,7 +6,7 @@
 /*   By: houabell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 15:05:10 by houabell          #+#    #+#             */
-/*   Updated: 2025/06/23 22:17:41 by houabell         ###   ########.fr       */
+/*   Updated: 2025/06/24 19:53:51 by houabell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,11 @@ static void	execute_pipeline(t_command **cmds, int cmd_count, t_shell *shell)
 				if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
 					exit(1);
 				close(pipe_fd[1]);
+			}
+			if (!cmds[i]->args || !cmds[i]->args[0])
+			{
+				handle_redir(cmds[i]);
+				exit (0);
 			}
 			if (handle_redir(cmds[i]) != 0)
 				exit(1);
