@@ -59,13 +59,6 @@ int	check_token_condition(t_token *cur, t_token *prev)
 	return (is_redir_target);
 }
 
-/*static void	move_to_next_token(t_token **cur_token, t_token **prev_token)
-{
-	*prev_token = *cur_token;
-	if (*cur_token)
-		*cur_token = (*cur_token)->next;
-}*/
-
 void	print_ambiguous_redirect_error(t_shell *shell, t_token *token)
 {
 	printf("minishell: %s: ambiguous redirect\n", token->value);
@@ -75,70 +68,3 @@ void	print_ambiguous_redirect_error(t_shell *shell, t_token *token)
 	free_var_info_list(shell->variables);
 	shell->variables = NULL;
 }
-
-/*void	expand_variables(t_shell *shell)
-{
-	t_token		*cur;
-	t_token		*prev;
-	t_token		*next_node;
-	t_var_info	*vars;
-	int			is_redir_target;
-	char		**segments;
-	int			segment_count;
-
-	cur = shell->tokens;
-	prev = NULL;
-	vars = shell->variables;
-	while (cur != NULL)
-	{
-		next_node = cur->next;
-		is_redir_target = check_token_condition(cur, prev);
-		if (is_redir_target == -1 || !(cur->type == TOKEN_WORD && has_variable(cur)))
-		{
-			prev = cur;
-			cur = next_node;
-			continue ;
-		}
-		segments = expand_token_value(cur->value, &vars, shell);
-		segment_count = 0;
-		if (segments)
-			while (segments[segment_count])
-				segment_count++;
-		
-		if (is_redir_target && segment_count != 1)
-		{
-			print_ambiguous_redirect_error(shell, cur);
-			free_arr(segments);
-			return ;
-		}
-		
-		if (!segments) // This block is now only for non-redirect expansions
-		{
-			if (prev)
-				prev->next = next_node;
-			else
-				shell->tokens = next_node;
-			free(cur->value);
-			free(cur);
-			cur = next_node;
-		}
-		else
-		{
-			t_token *new_list;
-			t_token *temp_for_free;
-
-			new_list = create_token_list(segments, is_redir_target);
-			if (new_list)
-			{
-				temp_for_free = new_list;
-				replace_first_token(cur, new_list);
-				insert_remaining_tokens(cur, new_list);
-				free(temp_for_free->value);
-				free(temp_for_free);
-			}
-			free_arr(segments);
-			prev = cur;
-			cur = next_node;
-		}
-	}
-}*/

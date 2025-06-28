@@ -27,58 +27,6 @@ static int	is_parent_builtin(char *cmd)
 	return (0);
 }
 
-/*int	execute_single_command(t_command *cmd, t_env **env) // REMOVED t_shell *shell
-{
-	int		status;
-	int		stdout_save;
-	int		stdin_save;
-	pid_t	pid;
-	char	*env_path;
-
-	if (!cmd->args || !cmd->args[0])
-		return (0);
-	if (is_parent_builtin(cmd->args[0]))
-	{
-		stdout_save = dup(STDOUT_FILENO);
-		stdin_save = dup(STDIN_FILENO);
-		if (handle_redir(cmd) != 0)
-			return (dup2(stdout_save, STDOUT_FILENO), dup2(stdin_save, STDIN_FILENO),
-				close(stdout_save), close(stdin_save), 1);
-		status = is_builtin(cmd->args[0], cmd->args, NULL, env);
-		dup2(stdout_save, STDOUT_FILENO);
-		dup2(stdin_save, STDIN_FILENO);
-		close(stdout_save);
-		close(stdin_save);
-		return (status);
-	}
-	signal(SIGINT, SIG_IGN);
-	pid = fork();
-	if (pid == -1)
-		return (perror("minishell: fork"), 1);
-	if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		if (handle_redir(cmd) != 0)
-			exit(1);
-		env_path = get_my_env("PATH", *env); // CHANGED from shell->env
-		exit(is_builtin(cmd->args[0], cmd->args, env_path, env));
-	}
-	waitpid(pid, &status, 0);
-	handle_signals();
-	if (WIFSIGNALED(status))
-	{
-		if (WTERMSIG(status) == SIGINT)
-			printf("\n");
-		else if (WTERMSIG(status) == SIGQUIT)
-			printf("Quit (core dumped)\n");
-		return (128 + WTERMSIG(status));
-	}
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (status);
-}*/
-
 int	execute_single_command(t_command *cmd, t_env **env)
 {
 	int		status;

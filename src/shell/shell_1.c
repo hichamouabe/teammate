@@ -64,34 +64,6 @@ void	free_shell(t_shell *shell)
 	free(shell);
 }
 
-/*void	reset_shell(t_shell *shell)
-{
-	if (shell->tokens)
-	{
-		free_tokens(shell->tokens);
-		shell->tokens = NULL;
-	}
-	if (shell->commands)
-	{
-		free_cmd(shell->commands);
-		shell->commands = NULL;
-	}
-	if (shell->input)
-	{
-		free(shell->input);
-		shell->input = NULL;
-	}
-	if (shell->variables)
-	{
-		free_var_info_list(shell->variables);
-		shell->variables = NULL;
-	}
-	if (shell->heredoc_files)
-		cleanup_files(shell);
-	shell->heredoc_sigint = 0;
-}*/
-
-// In file: src/shell/shell_1.c
 
 void	reset_shell(t_shell *shell)
 {
